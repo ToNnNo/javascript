@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fetch</title>
+    <style>
+        .table {
+            width: 100%;
+            margin-top: 10px;
+            border-spacing: 0;
+        }
+
+        .table tr td, .table tr th {
+            padding: 10px;
+            text-align: left;
+            border-top: 1px solid #ccc;
+        }
+
+        .table tr th {
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+    <script src="../script.js"></script>
+    <script>
+
+        function toHtml(users) {
+            let html = "";
+
+            for (let user of users) {
+                html += "<tr>";
+                for (let key in user) {
+                    if (user.hasOwnProperty(key)) {
+                        html += `<td>${user[key]}</td>`;
+                    }
+                }
+                html += "</tr>";
+            }
+
+            $("#users > tbody").innerHTML = html;
+        }
+
+        loaded(() => {
+
+            $("#btn").addEventListener('click', function () {
+
+                // Promise -> .then() ou .catch()
+                /*fetch("../ressource/bdd.json").then(response => {
+                    // response = HttpResponse
+                    console.log(response);
+                    return response.json(); // Promise<any>
+                }).then(body => {
+                    console.log(body);
+                    toHtml(body);
+                }).catch(error => console.log(error))*/
+
+                fetch("../ressource/bdd.json")
+                    .then(response => response.json())
+                    .then(response => toHtml(response))
+                    .catch( console.log );
+
+
+            });
+
+        });
+
+
+    </script>
+</head>
+<body>
+<h1>API Fetch</h1>
+<hr/>
+
+<button id="btn">Lire bdd.json</button>
+<table id="users" class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+</body>
+</html>

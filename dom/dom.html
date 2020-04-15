@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM</title>
+    <script src="../script.js"></script>
+    <script>
+        loaded(() => {
+            let index = 1;
+
+            $('#btn').addEventListener('click', function () {
+                let div = document.querySelector('#container') || document.createElement('div');
+                div.setAttribute('id', 'container');
+
+                let paragraph = document.createElement('p');
+                let content = document.createTextNode('Lorem ipsum dolor sit amet, consectetur adipisicing elit. ' +
+                    'Aperiam aut cumque dignissimos, dolorem enim eum facilis ipsum iure laboriosam laborum minima ' +
+                    'molestias non numquam obcaecati possimus quasi, quisquam? Facere, illo! ' + index);
+
+                paragraph.appendChild(content);
+
+                div.appendChild(paragraph);
+
+                //document.body.insertBefore(div, document.querySelector("#btn").nextSibling);
+
+                document.querySelector("#btn").after(div);
+
+                index++;
+            });
+
+            $('#showhide').addEventListener('click', function(){
+
+                let paragraph = document.querySelector('#paragraph');
+
+                if(paragraph == null) {
+                    paragraph = document.createElement('p');
+                    paragraph.setAttribute('id', 'paragraph');
+                    let content = document.createTextNode('Lorem ipsum dolor sit amet, consectetur adipisicing elit. ' +
+                        'Aperiam aut cumque dignissimos, dolorem enim eum facilis ipsum iure laboriosam laborum minima ' +
+                        'molestias non numquam obcaecati possimus quasi, quisquam? Facere, illo! ');
+                    paragraph.appendChild(content);
+
+                    this.textContent = 'Masquer';
+                    this.after(paragraph);
+                } else {
+                    this.textContent = 'Afficher';
+                    paragraph.remove();
+                }
+
+            });
+
+        });
+    </script>
+</head>
+<body>
+<h1>DOM</h1>
+<hr/>
+
+<div style="display:none">
+    <p>
+        Hello Admin -
+        <a href="#/administration">Aller sur la page admin</a>
+    </p>
+</div>
+
+<button id="btn"> Ajouter </button>
+
+<hr />
+
+<button id="showhide">Afficher</button>
+
+
+<footer>Fin de la page</footer>
+</body>
+</html>

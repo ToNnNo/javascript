@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Les Iterators</title>
+    <script>
+
+        // Iterator
+        // ArrayCollection
+
+        let arrayCollection = {
+            values: [],
+            add(value) {
+                this.values.push(value);
+                return this;
+            },
+            // Symbol est type ( es6 ); Les Symbol permettent de créer des variables (attr ou method) uniques
+            // Un iterator doit retourner object qui contient une method next()
+            // La method next() doit retourner un objet qui contient les attributs value et done
+            // l'attribut value va contenir la valeurs à afficher
+            // l'attribut done va contenir un boolean qui indique si on se trouve à la fin du parcours
+            [Symbol.iterator]() {
+                let index = 0;
+                let values = this.values;
+                return {
+                    next() {
+                        return {value: values[index++], done: values.length < index};
+                    }
+                };
+            }
+        };
+
+        arrayCollection.add("un").add("deux").add("trois").add("quatre");
+        for (let value of arrayCollection) {
+            console.log(value);
+        }
+
+        // Generator
+        // Pour créer un generator, on utilise le caractère * dans la structure de déclaration
+        // Une fonction generator à la capacité de retourner plusieurs valeurs
+        // Pour retourner plusieurs valeurs, on va utiliser yield (rendre, récolter)
+        function* valeurPaire(min, max) {
+            for (let i = min; i <= max; i++) {
+                if (i % 2 === 0) {
+                    // return i; <- ma fonction va s'arreter ici
+                    yield i; // <- retourne une valeur sans mettre fin à la fonction
+                }
+            }
+        }
+
+        for (let value of valeurPaire(0, 10)) { // [0; 10]
+            console.log(value);
+        }
+
+    </script>
+</head>
+<body>
+
+<h1>Iterator & Generator</h1>
+<hr/>
+
+
+</body>
+</html>

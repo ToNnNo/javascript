@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Autocomplete Module</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="js/autocomplete.js"></script>
+</head>
+<body>
+<h1>Autocomplete</h1>
+<hr />
+
+<form method="get" action="">
+    <h2>Nom Autocomplétion</h2>
+    <div>
+        <label for="nom_autocomplete">Nom:</label>
+        <input type="text" name="nom" id="nom_autocomplete" data-module="autocomplete" data-key="name"
+               data-url="resources/bdd.json" data-length="1" class="textfield" value="" />
+    </div>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire</title>
+    <style>
+        body {
+            font-size: 1.05rem;
+            font-family: arial, sans-serif
+        }
+
+        .textfield {
+            border: 1px solid #ccc;
+            padding: 7px;
+            border-radius: 3px;
+            width: 25%;
+            font-size: 1rem
+        }
+
+        .invalid {
+            border-color: #f1371a
+        }
+
+        #autocomplete {
+            margin:0;
+            padding: 5px;
+            border: 1px solid #eee;
+        }
+
+        #autocomplete li {
+            list-style-type: none;
+            padding: 5px 0;
+        }
+
+        #autocomplete > li:hover, .active {
+            background-color: #eee;
+        }
+    </style>
+    <script src="../script.js"></script>
+    <script>
+        function exists(users, value) {
+            let result = users.find(user => user.name === value);
+
+            if (result) {
+                $("#nom").classList.add("invalid");
+            }
+        }
+
+        function listValue(users, value) {
+            return users.filter( user => user.name.startsWith(value));
+        }
+
+        function toHtmlList(users) {
+            let ul = $('#autocomplete') || document.createElement('ul');
+            ul.setAttribute('id', 'autocomplete');
+            ul.innerHTML = "";
+
+            for(let user of users) {
+                let li = document.createElement('li');
+                li.textContent = `${user.name} (${user.email})`;
+                li.addEventListener('click', function(){
+                    $("#nom_autocomplete").value = user.name;
+                    $('#autocomplete').remove();
+                });
+
+                ul.appendChild(li);
+            }
+
+            $("#nom_autocomplete").after(ul);
+        }
+
+        function down(){
+            let li = $('#autocomplete > li.active');
+            if(!li){
+                $('#autocomplete > li:first-child').classList.add('active');
+            }else{
+                let next = li.nextSibling;
+                if(next) {
+                    li.classList.remove('active');
+                    next.classList.add('active');
+                }
+            }
+        }
+
+        function up(){
+            let li = $('#autocomplete > li.active');
+            if(li){
+                let prev = li.previousSibling;
+                if(prev) {
+                    li.classList.remove('active');
+                    prev.classList.add('active');
+                }
+            }
+        }
+
+        function validSelection(){
+            let li = $('#autocomplete > li.active');
+            $("#nom_autocomplete").value = li.textContent.split(' ')[0];
+            $('#autocomplete').remove();
+        }
+
+        loaded(() => {
+
+            /** Existe */
+            let xhr = new XMLHttpRequest();
+            xhr.responseType = "json";
+
+            let target = $('#nom');
+
+            target.addEventListener('focus', () => {
+                target.classList.remove('invalid');
+            });
+
+            target.addEventListener('blur', function () {
+                xhr.onreadystatechange = () => {
+
+                    if (xhr.readyState === xhr.DONE && xhr.status === 200) {
+                        exists(xhr.response, this.value);
+                    }
+
+                };
+
+                xhr.open('GET', '../ressource/bdd.json'); // `http://www.monsite.fr/ajax.php?name=${target.value}`
+                xhr.send();
+            });
+
+            /** Autocomplete */
+            $("#nom_autocomplete").addEventListener('keydown', function(event){
+                if(event.key === 'Tab'){
+                    validSelection();
+                }
+            });
+
+            $("#nom_autocomplete").addEventListener('keyup', function (event) {
+
+                if(event.key === 'Escape'){
+                    $('#autocomplete').remove();
+                    return;
+                }
+
+                if(event.key === 'ArrowDown'){
+                    down();
+                    return;
+                }
+
+                if(event.key === 'ArrowUp'){
+                    up();
+                    return;
+                }
+
+                if (this.value.length >= 2) {
+                    fetch("../ressource/bdd.json")
+                        .then(response => response.json())
+                        .then(response => {
+                            const users = listValue(response, this.value);
+                            toHtmlList(users);
+                        })
+                } else {
+                    if($('#autocomplete'))
+                        $('#autocomplete').remove();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+<h1>Formulaire</h1>
+<hr/>
+
+<h2>Nom Existe ?</h2>
+<div>
+    <label for="nom">Nom:</label>
+    <input type="text" name="nom" id="nom" class="textfield" value=""/>
+</div>
+
+<hr/>
+
+<h2>Nom Autocomplétion</h2>
+<div>
+    <label for="nom_autocomplete">Nom:</label>
+    <input type="text" name="nom" id="nom_autocomplete" class="textfield" value=""/>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Destructuration</title>
+    <script>
+        "use strict";
+
+        // Array
+        // let cars = new Array('Peugeot', 'Renault', 'Fiat');
+
+        let cars = ['Peugeot', 'Renault', 'Citroen'];
+        console.log(cars);
+
+        // Object literal
+        let obj = { nom: "Doe", prenom: "John" };
+        console.log(obj, `Hello ${obj.prenom}`);
+
+        // Destructuration Array
+        let list = [1, 2, 3, 4];
+        //let a = list[0]; // etc ...
+
+        let [a, b, c] = list;
+
+        console.log(`a = ${a}; b = ${b}; c = ${c};`);
+
+        let [d, , f, g] = list;
+
+        console.log(`d = ${d}; f = ${f}; g = ${g};`);
+
+        let [h, i, j, k = 0, l = 5] = list;
+
+        console.log(`h = ${h}; i = ${i}; j = ${j}; k = ${k}; l = ${l};`);
+
+        // Destructuration Object
+
+        let object = { lastname: 'Bond', firstname: 'James', job: 'Agent Secret' };
+
+        let { lastname, firstname, job } = object;
+
+        console.log(`${firstname} ${lastname}: ${job}`);
+
+        let { lastname: nom, firstname: prenom, job: metier, pseudo = "007" } = object;
+
+        console.log(`${nom} ${prenom} (${pseudo}): ${metier}`);
+
+        // Exercice
+
+        let number1 = 10, number2 = 72;
+        console.log(`Avant: number1 = ${number1}; number2 = ${number2}`);
+
+        // Mettre la valeur de number1 dans number2 et inversement
+        [number2, number1] = [number1, number2];
+
+        console.log(`Après: number1 = ${number1}; number2 = ${number2}`);
+
+    </script>
+</head>
+<body>
+<h1>Destructuration</h1>
+<hr />
+
+<p>Mode d'assignation, c'est à dire une manière affecter des variables</p>
+</body>
+</html>

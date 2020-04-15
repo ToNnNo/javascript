@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Galerie</title>
+    <style>
+        * { box-sizing: border-box }
+        .table{
+            width: 1040px;
+            margin: auto;
+            background-color: #555;
+        }
+        .table td {
+            width: 250px;
+            padding: 5px;
+        }
+        .table td[rowspan] {
+            width: 510px;
+        }
+    </style>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            let center = document.querySelector('#center');
+
+            document.querySelectorAll('.galerie').forEach( elt => {
+
+                elt.addEventListener('mouseover', () => {
+                    elt.src = elt.dataset.over;
+                });
+
+                elt.addEventListener('mouseout', () => {
+                    elt.src = elt.dataset.out;
+                });
+
+                elt.addEventListener('click', () => {
+                    center.src = elt.dataset.click;
+                });
+
+            });
+        });
+    </script>
+</head>
+<body>
+
+<table class="table">
+    <tr>
+        <td>
+            <img src="images/image_1P.jpg" alt="image 1" class="galerie" data-over="images/image_1C.jpg"
+                 data-out="images/image_1P.jpg" data-click="images/image_1G.jpg" />
+        </td>
+        <td rowspan="2">
+            <img src="" alt=" " id="center" />
+        </td>
+        <td>
+            <img src="images/image_3P.jpg" alt="image 3" class="galerie" data-over="images/image_3C.jpg"
+                 data-out="images/image_3P.jpg" data-click="images/image_3G.jpg" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="images/image_2P.jpg" alt="image 2" class="galerie" data-over="images/image_2C.jpg"
+                 data-out="images/image_2P.jpg" data-click="images/image_2G.jpg" />
+        </td>
+        <td>
+            <img src="images/image_4P.jpg" alt="image 4" class="galerie" data-over="images/image_4C.jpg"
+                 data-out="images/image_4P.jpg" data-click="images/image_4G.jpg" />
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

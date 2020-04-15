@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamique Form</title>
+    <style>
+        .my { margin: 10px 0 }
+    </style>
+    <script src="../script.js"></script>
+    <script>
+        loaded(() => {
+            let index = 0;
+
+            $('#add_input').addEventListener('click', function(){
+                let div = document.createElement('div');
+                div.classList.add('my');
+
+                let input = document.createElement('input');
+                input.setAttribute('type', 'text');
+                input.setAttribute('id', `skill_${index}`);
+                input.setAttribute('name', `skill[]`);
+                input.setAttribute('placeholder', 'Ajouter une compétence');
+
+                div.appendChild(input);
+
+                let button = document.createElement('button');
+                button.setAttribute('type', 'button');
+                button.textContent = "X";
+                button.addEventListener('click', function(){
+                    this.parentNode.remove();
+                });
+
+                div.appendChild(button);
+
+                this.parentNode.appendChild(div);
+                index++;
+            });
+
+        });
+    </script>
+</head>
+<body>
+<h1>Dynamique Form</h1>
+<hr/>
+
+<form method="get" action="">
+    <div class="my">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="" />
+    </div>
+    <div class="my">
+        <label>Compétence:</label>
+        <button type="button" id="add_input"> + </button>
+        <br />
+        <!-- <input type="text" id="skill_0" name="skill[0]" value="" /> <button type="button"> X <button> -->
+    </div>
+    <div class="my">
+        <input type="submit" name="envoyer" value="Envoyer" />
+    </div>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Les Objets</title>
+    <script src="../script.js"></script>
+    <script>
+        loaded(() => {
+
+            // JSON = JavaScript Object Notation
+
+            // Crée un objet en définissant le constructeur
+            function Humain(nom, prenom, age) {
+                this.nom = nom;
+                this.prenom = prenom;
+                this.age = age;
+            }
+
+            Humain.prototype.sePresenter = function () {
+                return `Bonjour, je m'appelle ${this.prenom} ${this.nom} et j'ai ${this.age} ans`;
+            };
+
+            let humain = new Humain('Doe', 'John', 30);
+
+            console.log(humain, humain.sePresenter());
+
+            // json -> En json la clé doit être une chaine de caractères
+            let json = {"nom": "Doe", "prenom": "john"};
+
+            // objet litteral
+
+            const u = 0;
+
+            let es6Object = {
+                u, // identique à u: u
+                foo: 'bar',
+                baz: 18.5,
+                quux() {
+                    return "Hello World";
+                }
+            };
+
+            console.log(es6Object, es6Object.foo, es6Object.quux(), `u = ${es6Object.u}`);
+
+            // class es6
+            /**
+             * ne déclare pas d'attributs
+             * n'a pas visibilité, par défaut tout est public ...
+             *      Par convention un attribut qui doit être privé, on va le nommer avec le prefix _
+             */
+            class Voiture {
+                constructor(marque, modele, couleur) {
+                    this._marque = marque;
+                    this.modele = modele;
+                    this.couleur = couleur;
+                }
+
+                // getter
+                get marque() {
+                    return this._marque;
+                }
+
+                // setter
+                set marque(marque) {
+                    this._marque = marque;
+                }
+
+                demarrer() {
+                    //return "La Voiture démarre";
+                    return `La ${this.constructor.name} démarre`;
+                }
+
+                avancer() {
+                    return `La ${this.constructor.name} avance`;
+                }
+            }
+
+            class Ambulance extends Voiture {
+                constructor(marque, modele, couleur) {
+                    super(marque, modele, couleur); // permet de faire référence au parent
+                    this.sirene = false;
+                }
+
+                // redéfinition
+                demarrer() {
+                    let bruit = "";
+                    if (this.sirene) {
+                        bruit = ", Pim Pom !";
+                    }
+                    return `${super.demarrer()}${bruit}`;
+                }
+
+                // Appartient à la classe, est partagé
+                static klaxonner() {
+                    return "Pouet Pouet";
+                }
+            }
+
+            let voiture = new Voiture('Ferrari', 'F40', 'Rouge');
+
+            voiture.marque = "Citroen";
+
+            console.log(voiture, voiture.demarrer(), voiture.marque, voiture._marque);
+
+            let ambulance = new Ambulance('Renault', 'Kangoo', 'Blanche');
+            ambulance.sirene = true;
+
+            console.log(ambulance, ambulance.demarrer());
+
+            console.log(ambulance.avancer());
+
+            console.log(Ambulance.klaxonner());
+
+            console.log(typeof 1, typeof true); // number, boolean
+
+            console.log(typeof {}, typeof voiture); // object, -Voiture-: object
+
+            console.log(`voiture instanceof Voiture = ${voiture instanceof Voiture}`); // true
+            console.log(`voiture instanceof Object = ${voiture instanceof Object}`); // true
+            console.log(`ambulance instanceof Voiture = ${ambulance instanceof Voiture}`); // true
+
+        });
+    </script>
+</head>
+<body>
+<h1>Programmation Orienté Objet</h1>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Introduction</title>
+    <script>
+        // variable
+        var prenom = "Jean"; // ancien méthode -> déclare les variables avec un scope élargi (global)
+        let nom = "Durand"; // nouvelle méthode -> déclare les variables avec un scope restreint (local)
+        // différence entre les 2 est le scopes
+
+        // JS est un langage dit prototype
+        // ici (entre les balises scripts) je suis déjà dans un objet prototype
+        // par défaut les variables définies à la racine de script sont globales
+
+        // constante
+        const cafe = "Arabica";
+
+        // iteration: for/while/dowhile
+        // condition: if/switch
+
+        for (let i = 0; i < 10; i++) {
+            // permet d'écrire dans la console d'execution (le navigateur)
+            console.log('i = ' + i);
+        }
+
+        // avec la déclaration var on obtient un résultat en dehors de la boucle
+        // avec la déclaration let on obtient une erreur
+        // console.log('> i = ' + i);
+
+        // JS est un langage non typé
+        /**
+         * Typage:
+         * [Primitif]
+         * int
+         * float
+         * bool true/false
+         * {characters}
+         * [Référence] new
+         * String
+         * Array
+         * Object
+         * JSON
+         */
+
+        /**
+         * Opérateur:
+         * Mathématique     -> + - * / % ** (pow)
+         * Logique          -> ! (non) && (et) || (ou) ^ (ou exclusif binaire)
+         * Incrémentation   -> ++ --
+         * Comparatif       -> < > <= >= == != (commun) === !==
+         */
+
+        console.log('Math.pow(2, 3) = ' + Math.pow(2, 3), '2**3 = ' + (2 ** 3)); // + est symbol de la concatenation
+
+        let a = 10;
+
+        console.log(++a); // 11; j'incrémente la valeur puis l'affiche
+        console.log(a++); // 11; j'affiche la valeur puis j'incrémente
+
+        let b; //= false; // undefined; // null; // 0;
+
+        if (!b) {
+            console.log('La variable b à pour valeur false ou n\'existe pas');
+        }
+
+        let c = 0; // false;
+        if (c == false) {
+            console.log('La variable c à pour valeur false');
+        }
+
+        let d = "12";
+        console.log(d == 12);
+        console.log(12 === d);
+
+        /**
+         * Code Java
+         *
+         * String a  = "Chaine";
+         *
+         * a.equal("Chaine"); // true
+         *
+         * String b = null;
+         *
+         * b.equal("Chaine"); // Retourne une Exception de type nullPointerException
+         *
+         * // Yoda Code
+         * "Chaine".equal(b); // false
+         */
+
+            // template litteraux (es6) - Lorem ipsum dolor sit amet, consectetur adipisici elit.
+        let chainequote = "Lorem ipsum";
+        chainequote = 'Lorem ipsum dolor sit amet, ' +
+            'consectetur adipisici elit.';
+
+        // back tick (ou back quote) ` anti quote
+        chainebackquote = `Lorem ipsum dolor sit amet,
+consectetur adipisici elit.`;
+
+        console.log(chainequote);
+        console.log(chainebackquote);
+
+        let template = `a = ${a}; 1 + 2 = ${1 + 2}`; // interpolation de chaine ${}
+
+        console.log(template);
+    </script>
+</head>
+<body>
+<h1>Introduction</h1>
+<hr/>
+
+<h3>ECMASCRIPT</h3>
+
+<p>EcmaScript (es) est une norme sur laquelle s'appuie JavaScript (js). (ActionScript (Flash), TypeScript (TS))</p>
+
+<p>Dernière norme es sorti es7 - juin 2016</p>
+
+<p>Première version de EcmaScript (es1) date de 1997 - es5 date de 2009 en sachant es4 a été abandonnée.
+    es3 qui date de 1999</p>
+
+<p>Jusqu'en 2010 le JavaScript n'a pas été bien vu et voir même détesté par les développeurs.</p>
+
+<p>
+    L'arrivé de chrome et la volonté de google de vouloir refaire fonctionner JS, à parmi de remettre js au gout du
+    jour.
+    Moteur V8 (2008) qui interpréteur JS à permis de booster les capacités de JS aussi bien coté interprétation
+    qu'execution.<br/>
+    Ce qui a aider le JS à revenir au premier plan, c'est l'arrivé des frameworks comme jQuery, Mootools, etc
+</p>
+
+<p>Le Moteur V8 a permis l'arrivé sur le marché d'un nouveau langage de programmation, qui s'appuie sur le javascript
+    mais qui s'execute sur un serveur web et qui s'appelle NodeJS (2009)</p>
+
+<hr/>
+
+<p>Grand Rupture: Juin 2015 -> ES6 (es2015)</p>
+
+<p>es11 -> Async/Await</p>
+
+<p>Convention de <a href="https://github.com/elierotenberg/coding-styles/blob/master/es6.md" target="_blank">nommage</a>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Chifumi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
+    <style>
+        .window {
+            height: 25vh;
+            overflow-y: scroll;
+            resize: vertical;
+        }
+    </style>
+    <script type="module" src="./index.js"></script>
+</head>
+<body>
+<main class="container-fluid">
+    <header class="pt-5">
+        <h1 class="text-center display-3">Chi Fu Mi</h1>
+        <hr/>
+    </header>
+
+    <section class="row">
+        <div class="col-12 col-md-5 display-4 text-center text-md-right">
+            <span id="player_one"></span><br />
+            <span id="player_one_score"></span>
+        </div>
+        <div class="col-12 col-md-2 text-center display-4 align-self-center text-danger">
+            VS
+        </div>
+        <div class="col-12 col-md-5 display-4 text-center text-md-left">
+            <span id="player_two"></span><br />
+            <span id="player_two_score"></span>
+        </div>
+    </section>
+    <section class="mt-5 text-center">
+
+            <button class="btn btn-outline-dark px-5 py-2 border-0" data-shape="rock">
+                <i class="fas fa-hand-rock fa-5x"></i>
+            </button>
+
+
+            <button class="btn btn-outline-dark px-5 py-2 border-0" data-shape="paper">
+                <i class="fas fa-hand-paper fa-5x"></i>
+            </button>
+
+            <button class="btn btn-outline-dark px-5 py-2 border-0" data-shape="scissors">
+                <i class="fas fa-hand-scissors fa-5x"></i>
+            </button>
+
+    </section>
+    <section id="trace" class="col-12 offset-md-3 col-md-6 py-3 mt-3 border rounded window"></section>
+
+    <footer>
+        <hr/>
+        <p class="text-center small">Dawan Distance - Avril 2020 - JavaScript</p>
+    </footer>
+</main>
+</body>
+</html>

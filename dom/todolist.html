@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="../style.css"/>
+    <script src="../script.js"></script>
+    <script>
+        loaded(() => {
+            let tasks = [];
+            const input = $('#task');
+            const btn = $('#btn');
+
+            function canRemoveTask() {
+                $$('#list li').forEach( (li, index) => {
+
+                    li.addEventListener('click', () => {
+                        tasks.splice(index, 1);
+
+                        refreshList();
+                    });
+                });
+            }
+
+            function refreshList() {
+                let html = "";
+
+                for (let task of tasks) {
+                    html += `<li>${task}</li>`;
+                }
+
+                $('#list').innerHTML = html;
+
+                canRemoveTask();
+            }
+
+            function addElement() {
+                if (input.value) {
+                    tasks.push(input.value);
+                    input.value = null;
+                    input.focus();
+
+                    refreshList();
+                }
+            }
+
+            btn.addEventListener('click', addElement);
+
+            input.addEventListener('keypress', (event) => {
+                if ('Enter' === event.key) {
+                    addElement();
+                }
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<h1>Todo List</h1>
+<hr/>
+
+<section class="row">
+
+    <aside class="col-4">
+        <ul id="list"></ul>
+    </aside>
+    <article class="col-8">
+
+        <div>
+            <input type="text" id="task" value="" placeholder="Entrer une tache"/>
+            <button id="btn">Ajouter</button>
+        </div>
+
+    </article>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attribute Data</title>
+    <script src="../script.js"></script>
+    <script>
+
+        loaded( () => {
+            /*let target = $("#target");
+
+            target.addEventListener('mouseover', function(){
+                this.style.color = "#f00";
+            });
+
+            target.addEventListener('mouseout', function(){
+                this.style.removeProperty('color');
+            });*/
+
+            $$("[data-module='color']").forEach( elt => {
+                let color = elt.dataset.color || "#f00";
+
+                elt.addEventListener('mouseover', function(){
+                    this.style.color = color;
+                });
+
+                elt.addEventListener('mouseout', function(){
+                    this.style.removeProperty('color');
+                });
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+
+<h1>Attribute Data</h1>
+<hr />
+
+<p>
+    Les attributs data, sont des attributs html dynamique. Ce qui est dynamique est leur nom, mais aussi les valeurs qu'on leur donne.<br />
+    Pour les utiliser, on va ajouter dans la balise html <code style="color:#ff000088">data-*="..."</code>.<br />
+    <code style="color:#ff000088">*</code> = nom de l'attribut, et <code style="color:#ff000088"> ... </code> = une valeur
+</p>
+
+<hr />
+
+<p data-module="color">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aspernatur atque aut consectetur delectus eligendi
+    eveniet excepturi facilis, illo, ipsum officiis omnis perferendis qui quia rem repellat sed tenetur unde?</p>
+
+<p data-module="color" data-color="#09f">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aspernatur atque aut consectetur delectus eligendi
+    eveniet excepturi facilis, illo, ipsum officiis omnis perferendis qui quia rem repellat sed tenetur unde?</p>
+
+<p data-module="color" data-color="orange">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aspernatur atque aut consectetur delectus eligendi
+    eveniet excepturi facilis, illo, ipsum officiis omnis perferendis qui quia rem repellat sed tenetur unde?</p>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste User</title>
+    <style>
+        .table {
+            width: 100%;
+            margin-top: 10px;
+            border-spacing: 0;
+        }
+
+        .table tr td, .table tr th{
+            padding: 10px;
+            text-align: left;
+            border-top: 1px solid #ccc;
+        }
+
+        .table tr th{
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+    <script src="../script.js"></script>
+    <script>
+        function toHtml(users) {
+            let html = "";
+
+            /*for(let user of users) {
+                html += "<tr>";
+                html += `<td>${user.id}</td>`;
+                html += `<td>${user.name}</td>`;
+                html += `<td>${user.email}</td>`;
+                html += "</tr>";
+            }*/
+
+            const columns = ['id', 'name', 'email'];
+            for(let user of users) {
+                html += "<tr>";
+                for( let key in user){
+                    if(user.hasOwnProperty(key) && columns.includes(key)){
+                        html += `<td>${user[key]}</td>`;
+                    }
+                }
+                html += "</tr>";
+            }
+
+            $('#users > tbody').innerHTML = html;
+        }
+
+        loaded(() => {
+            let xhr = new XMLHttpRequest();
+            // Values are: the empty string (default), "arraybuffer", "blob", "document", "json", and "text".
+            xhr.responseType = "json";
+
+            // xhr.responseText / xhr.responseXML / xhr.response
+
+            $$('.btn').forEach(btn => {
+
+                btn.addEventListener('click', () => {
+
+                    xhr.onreadystatechange = () => {
+
+                        if (xhr.readyState === xhr.DONE && xhr.status === 200) {
+                            toHtml(xhr.response);
+                        }
+
+                    };
+
+                    xhr.open('GET', btn.dataset.url);
+                    xhr.send();
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+<h1>Liste des utilisateurs</h1>
+<hr/>
+
+<button class="btn" data-url="../ressource/bdd.json">Lire bdd.json</button>
+<button class="btn" data-url="http://jsonplaceholder.typicode.com/users">Lire jsonplaceholder</button>
+<table id="users" class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+</body>
+</html>

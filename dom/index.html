@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM</title>
+    <script>
+        /*alert('Debut du chargement');
+        alert(document.querySelector('h1').innerText);*/
+        window.addEventListener('DOMContentLoaded', () => {
+            // alert('Fin du chargement');
+
+            /*document.getElementById('paragraph').addEventListener('click', () => {
+                alert('Bravo !');
+            });*/
+
+            document.querySelector("#paragraph").addEventListener('click', () => {
+                alert('Encore Bravo !');
+            });
+
+            document.querySelectorAll('p').forEach((p) => {
+                /*console.log(p);
+                p.style.color = 'red';*/
+                p.addEventListener('mouseover', () => {
+                    p.style.color = 'red';
+                })
+            });
+
+            let img = document.querySelector('#image');
+
+            img.addEventListener('mouseover', () => {
+                // img.src = '../images/science.jpg';
+                img.setAttribute('src', '../images/science.jpg'); // img.getAttribute('src');
+            });
+
+            img.addEventListener('mouseout', () => {
+                img.setAttribute('src', '../images/informatique.jpg');
+            });
+
+            // .innerHTML, .innerText, .textContent
+            let paragraph = document.querySelector("#content");
+            document.querySelector("#btnInnerHTML").addEventListener('click', () => {
+                paragraph.innerHTML = "Hello \n<b>World</b>";
+            });
+
+            document.querySelector("#btnInnerText").addEventListener('click', () => {
+                paragraph.innerText = "Hello \n<b>World</b>";
+            });
+
+            document.querySelector("#btnTextContent").addEventListener('click', () => {
+                paragraph.textContent = "Hello \n<b>World</b>"; // A utiliser pour éviter les failles XSS
+            });
+        });
+    </script>
+</head>
+<body>
+
+<h1 onclick="alert('Page title')">Document Object Model</h1>
+<hr/>
+
+<p>Le but de dom est de venir manipuler le HTML. Pour manipuler le document on va avoir 2 choses:</p>
+<ul>
+    <li>Evenement: Déclencher une action</li>
+    <li>Action: Modifier/Ajouter/Supprimer des éléments du dom</li>
+</ul>
+
+<p>Pour utiliser les actions, on devoir attendre que le document soit chargé</p>
+
+<p>window = fenetre qui contient le document DOM</p>
+<p>document = document DOM (HTML)</p>
+
+<hr/>
+
+<p id="paragraph">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur ea ipsum maiores molestias optio
+    vel veniam. Atque doloribus eum fugit hic incidunt inventore ipsa, ipsum laudantium minima minus nulla
+    voluptates!
+</p>
+
+<div>
+    <img src="../images/informatique.jpg" alt="informatique" id="image" />
+</div>
+
+<button id="btnInnerHTML">innerHTML</button>
+<button id="btnInnerText">innerText</button>
+<button id="btnTextContent">textContent</button>
+
+<p id="content"></p>
+
+<script>
+    /*alert('script de bas de page');
+    alert(document.querySelector('h1').innerText);*/
+</script>
+</body>
+</html>

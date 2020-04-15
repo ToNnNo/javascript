@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabs</title>
+    <style>
+        .content-item {
+            display: none;
+        }
+
+        .content-item.active {
+            display: block;
+        }
+
+        .nav-item {
+            color: cornflowerblue;
+            text-decoration: none;
+        }
+
+        .nav-item.active {
+            color: mediumpurple;
+        }
+    </style>
+    <script src="../script.js"></script>
+    <script>
+
+        loaded(() => {
+
+            $$('.nav-item').forEach(item => {
+                item.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    if (!this.classList.contains("active")) {
+                        $$('.active').forEach(elt => {
+                            elt.classList.remove('active')
+                        });
+
+                        // $(".nav-item.active").classList.remove('active');
+                        this.classList.add('active');
+
+                        // $(".content-item.active").classList.remove('active');
+                        let id = this.getAttribute('href');
+                        $(id).classList.add('active');
+                    }
+                });
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+
+<h1>Tabs</h1>
+<hr />
+
+<div>
+    <a href="#home" class="nav-item active">Home</a> -
+    <a href="#about" class="nav-item">About</a> -
+    <a href="#contact" class="nav-item">Contact</a>
+</div>
+
+<div>
+    <div id="home" class="content-item active">
+        <h2>Home</h2>
+        <p>
+            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, assumenda atque culpa eius eligendi
+                enim eum excepturi itaque libero magni maxime nemo obcaecati omnis quaerat quas recusandae temporibus
+                ullam ut!</span>
+            <span>Ad adipisci commodi debitis delectus error fuga labore, non officiis optio, quae qui quibusdam quidem
+                quos recusandae sapiente ullam, voluptas. Iste mollitia nihil omnis reiciendis unde! Fugiat nam repellat
+                veniam.</span>
+            <span>Aspernatur consectetur culpa cum, dicta dolor, doloribus est exercitationem expedita explicabo harum
+                incidunt ipsum iure, magni mollitia nam nulla numquam quibusdam ratione rerum soluta tempore temporibus
+                totam veniam voluptas voluptatum.</span>
+        </p>
+        <p>
+            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio dolorem illum maxime minus,
+                natus repellat voluptates. Accusantium amet eum iure odit officia, porro suscipit! Commodi error quaerat
+                quisquam unde?</span>
+            <span>Ad ducimus illum modi! A earum eligendi fugit quas quisquam ratione temporibus. Aliquam autem beatae
+                cupiditate ea earum enim eveniet fuga laudantium maxime modi, omnis optio praesentium ratione sequi
+                voluptatem!</span>
+            <span>Cum esse explicabo facilis inventore omnis! Accusantium beatae blanditiis, cumque dignissimos dolor
+                impedit, labore nesciunt nihil non quas saepe totam voluptate. Asperiores dolore fuga quaerat quam quos,
+                ratione repellendus tempore.</span>
+        </p>
+    </div>
+
+    <div id="about" class="content-item">
+        <h2>About</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, cumque delectus, dicta ex in laboriosam
+            laudantium maxime nam, nihil nobis non numquam omnis pariatur quidem quis reiciendis tempora! Eaque,
+            inventore!</p>
+        <p>Ab exercitationem non, porro praesentium provident quam voluptatum! A adipisci consectetur deserunt dicta
+            eaque, ex excepturi fuga minus nisi odio odit officiis optio perspiciatis quibusdam rem totam veniam
+            voluptas voluptatibus?</p>
+        <p>Ab ad, assumenda corporis debitis excepturi facere in incidunt inventore magni, minima nam nisi nulla numquam
+            odit praesentium quasi, qui quisquam reiciendis sint sunt. A et id nesciunt nihil quis!</p>
+    </div>
+
+    <div id="contact" class="content-item">
+        <h2>Contact</h2>
+        <form>
+            <label>Nom</label>
+            <input type="text"/>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

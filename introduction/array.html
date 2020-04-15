@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Les Tableaux</title>
+    <script>
+        //"use strict";
+
+        let cars = ['Peugeot', 'Citroen', 'Ford', 'Renault'];
+
+        console.log(cars);
+
+        console.log(`Mon tableau contient ${cars.length} valeurs;
+La première valeur est "${cars[0]}" et la dernière est "${cars[cars.length - 1]}"`);
+
+        console.log('----- Boucle for -----');
+        for (let i = 0; i < cars.length; i++) {
+            console.log(`cars[${i}] = ${cars[i]}`);
+        }
+
+        console.log('----- Boucle For in -----');
+        for (let index in cars) {
+            console.log(`cars[${index}] = ${cars[index]}`);
+        }
+
+        console.log('----- Boucle For of (es6) -----');
+        for (let value of cars) {
+            console.log(value);
+        }
+
+        // .entries() -> es6: est une method du modèle objet qui extrait chacune des clés et valeurs associées
+        // sous forme de Tableau: Array(key, value)
+        console.log('----- entries() -----');
+        for (let entrie of cars.entries()) {
+            console.log(entrie);
+        }
+
+        console.log('----- Boucle For of with entries -----');
+        for (let [index, value] of cars.entries()) {
+            console.log(`cars[${index}] = ${value}`);
+        }
+
+        console.log('----- Boucle forEach -----');
+        cars.forEach(function (value, index, array) {
+            console.log(`cars[${index}] = ${value}`);
+        });
+
+        // Ajouter
+        cars[cars.length] = "Hyundai";
+        cars.push('Seat');
+        cars.push('Fiat', 'Toyota');
+        console.log(cars);
+
+        // Supprimer
+        let extractLast = cars.pop(); // retire la dernière valeur du tableau
+        let extractFirst = cars.shift(); // retire la première valeur du tableau
+        let removed = cars.splice(cars.indexOf("Hyundai"), 1);
+        console.log(cars, extractFirst, extractLast, removed);
+
+        // Remplacer
+        let replaced = cars.splice(cars.indexOf('Citroen'), 1, 'Alpine');
+        console.log(cars);
+
+        // Insérer 1 ou +ieurs valeur à l'index
+        cars.splice(cars.indexOf("Ford"), 0, replaced[0], extractFirst, extractLast, removed[0]);
+        console.log(cars);
+
+        // prends chacune des valeurs du tableau, et transforme les valeurs en 1 chaine de caractère séparé par "séparateur"
+        let chaine = cars.join(', ');
+        console.log(chaine);
+        console.log(chaine.split(', '));
+
+        console.log('Hello World'.split('')); // affiche un tableau de caractère
+        cars.sort().reverse(); // trie et retourne les valeurs du tableau
+
+        console.log(cars);
+
+        // Recherche
+        console.log("Recherche Find:", cars.find(function (value) {
+            return 'Alpine' === value;
+        }));
+        console.log("Recherche FindIndex:", cars.findIndex(function (value) { // es6
+            return 'Alpine' === value;
+        }));
+
+        cars.splice(0, 0, 'Alpine');
+        console.log('Recherche:', cars.filter(function (value) {
+            return 'Alpine' === value;
+        }));
+
+        // Function Map
+
+        let numbers = [1, 2, 3, 4, 5];
+        let newNumbers = numbers.map(function (value, index, array) {
+            return value * 10;
+        });
+        console.log(numbers, newNumbers);
+
+        // operateur arrow =>
+
+        numbers.map((value) => {
+            return value * 10;
+        });
+
+        numbers.map(value => {
+            return value * 10;
+        });
+
+        numbers.map(value => value * 10);
+
+        // Exemple des conséquences
+
+        let object = {
+            numbers: [1],
+            foreach: function(){ // es5
+                // console.log(this); // Object
+                let _this = this;
+                this.numbers.forEach(function(value){
+                    console.log(this); // Window
+                    console.log(_this); // Object
+                });
+            },
+            foreach2: function(){ // es6
+                this.numbers.forEach( value => {
+                   console.log(this); // Object
+                });
+            }
+        };
+
+        object.foreach();
+        object.foreach2();
+
+    </script>
+</head>
+<body>
+
+<h1>Les Tableaux</h1>
+<hr/>
+
+</body>
+</html>

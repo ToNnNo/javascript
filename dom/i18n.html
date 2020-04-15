@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internationalisation</title>
+    <script src="../script.js"></script>
+    <script>
+        let lang = 'fr-FR';
+        let devise = 'EUR';
+
+        function __(lang, devise){
+            let options = {
+                year: 'numeric', month: 'long', day: 'numeric', weekday: 'long',
+                hour: 'numeric', minute: 'numeric', second: 'numeric',
+            };
+            let dateFormatter = new Intl.DateTimeFormat(lang, options);
+            let priceFormatter = new Intl.NumberFormat(lang, { style: 'currency', currency: devise });
+
+            print('#date', dateFormatter.format(new Date()) );
+            print('#prix', priceFormatter.format(1234567.89) );
+        }
+
+        loaded( () => {
+            __(lang, devise);
+
+            $('#pays').addEventListener('change', function(){
+                lang = this.value;
+                __(lang, devise);
+            });
+
+            $('#currency').addEventListener('change', function(){
+                devise = this.value;
+                __(lang, devise)
+            });
+        });
+
+    </script>
+</head>
+<body>
+<h1>i18n</h1>
+<hr />
+
+<div>
+    <select id="pays">
+        <option value="fr-FR">Français</option>
+        <option value="de-DE">Allemand</option>
+        <option value="en-US">Américain</option>
+    </select>
+
+    <select id="currency">
+        <option value="EUR">Euro</option>
+        <option value="USD">Dollar</option>
+        <option value="JPY">Yen</option>
+    </select>
+</div>
+
+<div>
+    <p>Date: <span id="date"></span></p>
+    <p>Prix: <span id="prix"></span></p>
+</div>
+
+</body>
+</html>

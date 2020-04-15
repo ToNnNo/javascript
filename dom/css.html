@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM CSS</title>
+    <style>
+        .old {
+            background-color: #333;
+            color: #63f06b;
+            font-size: 1.1rem; /* https://connect.adfab.fr/dev/dev-front/unite-de-mesure-css-rem */
+            padding: 5px;
+        }
+
+        #cube {
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+            margin: 20px auto 0;
+            transition: transform 1s;
+        }
+
+        .left {
+            transform: translateX( calc( -1 * (100vw/2 - 100px/2 - 8px) ) ); /* 8px 100px 100vw vh (100vw/2 - 100px/2 - 8px) */
+        }
+
+        .right {
+            transform: translateX( calc( 100vw/2 - 100px/2 - 8px ) );
+        }
+
+    </style>
+    <script src="../script.js"></script>
+    <script>
+        loaded(() => {
+
+            $('#btn').addEventListener('click', function () {
+                let target = $('#target');
+                if (target.hasAttribute('style')) {
+                    target.removeAttribute('style');
+                } else {
+                    target.style.color = "#58cc60";
+                }
+            });
+
+            $('#btn_class').addEventListener('click', function () {
+                let target = $('#target_class');
+
+                // target.className = 'old';
+
+                /*if (target.classList.contains('old')) {
+                    target.classList.remove('old');
+                } else {
+                    target.classList.add('old');
+                }*/
+
+                target.classList.toggle('old');
+            });
+
+            $('#left').addEventListener('click', function(){
+                // $('#cube').className = 'left';
+
+                let cube = $('#cube');
+                cube.classList.remove('right');
+                cube.classList.add('left');
+            });
+
+            $('#right').addEventListener('click', function(){
+
+                // $('#cube').className = 'right';
+                let cube = $('#cube');
+                cube.classList.remove('left');
+                cube.classList.add('right');
+            });
+
+            $('#center').addEventListener('click', function(){
+                $('#cube').classList.remove('right', 'left');
+            });
+
+        });
+    </script>
+</head>
+<body>
+<h1>DOM CSS</h1>
+<hr/>
+
+<button id="btn">Ajouter une couleur</button>
+<p id="target">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad dolores fuga fugit necessitatibus numquam
+    quis
+    recusandae repudiandae sint tenetur voluptas. Dolorem eligendi minima nulla praesentium reiciendis reprehenderit
+    rerum velit, voluptate.</p>
+<hr/>
+
+<button id="btn_class">Ajouter une class</button>
+<p id="target_class">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad dolores fuga fugit necessitatibus
+    numquam quis
+    recusandae repudiandae sint tenetur voluptas. Dolorem eligendi minima nulla praesentium reiciendis reprehenderit
+    rerum velit, voluptate.</p>
+
+<hr />
+
+<button id="left">Gauche</button>
+<button id="center">Centre</button>
+<button id="right">Droite</button>
+
+<div id="cube"></div>
+
+</body>
+</html>

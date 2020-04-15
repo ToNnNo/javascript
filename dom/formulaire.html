@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire</title>
+    <style>
+        #form div { margin: 10px 0 }
+        #form [type=text] { border: 1px solid #ccc; padding: 5px }
+    </style>
+    <script>
+        // https://keycode.info/
+
+        window.addEventListener('DOMContentLoaded', () => {
+            let inputs = document.querySelectorAll('#form [type=text]');
+
+            document.querySelector('#form').addEventListener('submit', (event) => {
+                // preventDefault(); stopPropagation()
+                inputs.forEach((input) => {
+                    if(!input.value){
+                        input.style.borderColor = '#ee0000';
+                        event.preventDefault();
+                    }
+                });
+            });
+
+            inputs.forEach( (input) => {
+
+                input.addEventListener('blur', () => {
+                    if(!input.value) {
+                        input.style.borderColor = '#ee0000';
+                    }
+                });
+
+                input.addEventListener('focus', () => {
+                    // input.removeAttribute('style');
+                    input.style.removeProperty('border-color');
+                });
+
+            });
+
+            // keyup, keydown, keypress
+            document.querySelector('#example').addEventListener('keyup', (event) => {
+                /** deprecated */
+                /*if(13 === event.keyCode){ // event.charCode
+                    console.log('coucou');
+                }*/
+
+                if('Enter' === event.key){
+                    document.querySelector('#inputValue').textContent = document.querySelector('#example').value;
+                    document.querySelector('#example').value = null;
+                }
+            });
+
+            document.body.addEventListener('keyup', (event) => {
+                if('Alt' === event.key){
+                    console.log('Alt');
+                }
+                if('Control' === event.key){
+                    console.log('Control');
+                }
+                if('Tab' === event.key){
+                    console.log('Tab');
+                }
+                if('Escape' === event.key){
+                    console.log('Escape');
+                }
+            })
+
+        });
+
+    </script>
+</head>
+<body>
+
+<h1>Formulaire</h1>
+<hr />
+
+<form method="post" action="" id="form">
+    <div>
+        <label>Nom: </label>
+        <input type="text" id="nom" value="" />
+    </div>
+    <div>
+        <label>Prénom: </label>
+        <input type="text" id="prenom" value="" />
+    </div>
+    <div>
+        <input type="submit" id="envoyer" value="Envoyer" />
+    </div>
+</form>
+
+<hr />
+
+<div>
+    <label>keypress</label>
+    <input type="text" id="example" value="" />
+</div>
+
+<p id="inputValue"></p>
+
+</body>
+</html>

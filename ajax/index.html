@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <script src="../script.js"></script>
+    <script>
+        function getXhr() {
+            if (window.XMLHttpRequest || window.ActiveXObject) {
+                let xhr;
+                if (window.ActiveXObject) { // IE
+                    try {
+                        xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch(e) {
+                        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                } else {
+                    xhr = new XMLHttpRequest(); // Firefox / Chrome / Edge
+                }
+
+                return xhr;
+            }
+
+            return null;
+        }
+
+        loaded(() => {
+            // Gecko / Webkit (/ Trident) -> Moteur de rendu (interpreteur)
+            let xhr = new XMLHttpRequest(); // Firefox / Chrome / Edge
+
+            $$('.read').forEach( btn => {
+                btn.addEventListener('click', () => {
+
+                    // Synchrone
+                    // open(verb http, url, sync/async, login, password) -> login/password authentification basic
+                    // http://login:password@www.monsite.fr
+
+                    /*xhr.open('GET', '../ressource/file.txt', false);
+                xhr.send();
+
+                // $('#result').textContent = xhr.responseText;
+                $('#result').innerHTML = xhr.responseText;*/
+
+                    // Asynchrone
+
+                    xhr.onreadystatechange = () => {
+                        // xhr.readyState
+                        /**
+                         * 0: unsent            -> open() n'a pas été appelé
+                         * 1: opened            -> open() a été appelé
+                         * 2: headers_received  -> les entêtes ont été reçus
+                         * 3: loading           -> la requete est en cours de traitement
+                         * 4: done              -> la requete est terminée
+                         */
+
+                        $('#result').textContent = 'Recherche en cours ...';
+
+                        if (xhr.status !== 200) {
+                            $('#result').textContent = `Erreur ${xhr.status}`;
+                        }
+
+                        if (xhr.readyState === xhr.DONE && xhr.status === 200) {
+                            setTimeout(() => {
+                                $('#result').innerHTML = xhr.responseText; // text/plain
+                            }, 2000);
+                        }
+                    };
+
+                    xhr.onerror = () => {
+                        $('#result').textContent += ': Une erreur est survenue';
+                    };
+
+                    xhr.open('GET', btn.dataset.url);
+                    xhr.send();
+
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+<h1>Ajax</h1>
+<hr />
+
+<p>xhr = XMLHttpRequest</p>
+
+<button class="read" data-url="../ressource/file.txt">Lire un fichier</button>
+<button class="read" data-url="http://www.dawan.fr">Afficher error</button>
+
+<div id="result" style="margin-top:10px"></div>
+
+</body>
+</html>
